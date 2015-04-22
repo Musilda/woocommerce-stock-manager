@@ -114,34 +114,38 @@ if(isset($_POST['save-all'])){
           <td></td>
           <td>
             <select name="manage_stock[<?php echo $item->ID; ?>]" class="manage_stock_<?php echo $item->ID; ?>">
-              <option value="yes" <?php if($product_meta['_manage_stock'][0] == 'yes'){ echo 'selected="selected"'; } ?>><?php _e('Yes','stock-manager'); ?></option>
-              <option value="no" <?php if($product_meta['_manage_stock'][0] == 'no'){ echo 'selected="selected"'; } ?>><?php _e('No','stock-manager'); ?></option>
+              <option value="yes" <?php if(!empty($product_meta['_manage_stock'][0]) && $product_meta['_manage_stock'][0] == 'yes'){ echo 'selected="selected"'; } ?>><?php _e('Yes','stock-manager'); ?></option>
+              <option value="no" <?php if(!empty($product_meta['_manage_stock'][0]) && $product_meta['_manage_stock'][0] == 'no'){ echo 'selected="selected"'; } ?>><?php _e('No','stock-manager'); ?></option>
             </select>
           </td>
           <td>
             <select name="stock_status[<?php echo $item->ID; ?>]" class="stock_status_<?php echo $item->ID; ?>">
-              <option value="instock" <?php if($product_meta['_stock_status'][0] == 'instock'){ echo 'selected="selected"'; } ?>><?php _e('In stock','stock-manager'); ?></option>
-              <option value="outofstock" <?php if($product_meta['_stock_status'][0] == 'outofstock'){ echo 'selected="selected"'; } ?>><?php _e('Out of stock','stock-manager'); ?></option>
+              <option value="instock" <?php if(!empty($product_meta['_stock_status'][0]) && $product_meta['_stock_status'][0] == 'instock'){ echo 'selected="selected"'; } ?>><?php _e('In stock','stock-manager'); ?></option>
+              <option value="outofstock" <?php if(!empty($product_meta['_stock_status'][0]) && $product_meta['_stock_status'][0] == 'outofstock'){ echo 'selected="selected"'; } ?>><?php _e('Out of stock','stock-manager'); ?></option>
             </select>
           </td>
           <td>
             <select name="backorders[<?php echo $item->ID; ?>]" class="backorders_<?php echo $item->ID; ?>">
-              <option value="no" <?php if($product_meta['_backorders'][0] == 'no'){ echo 'selected="selected"'; } ?>><?php _e('No','stock-manager'); ?></option>
-              <option value="notify" <?php if($product_meta['_backorders'][0] == 'notify'){ echo 'selected="selected"'; } ?>><?php _e('Notify','stock-manager'); ?></option>
-              <option value="yes" <?php if($product_meta['_backorders'][0] == 'yes'){ echo 'selected="selected"'; } ?>><?php _e('Yes','stock-manager'); ?></option>
+              <option value="no" <?php if(!empty($product_meta['_backorders'][0]) && $product_meta['_backorders'][0] == 'no'){ echo 'selected="selected"'; } ?>><?php _e('No','stock-manager'); ?></option>
+              <option value="notify" <?php if(!empty($product_meta['_backorders'][0]) && $product_meta['_backorders'][0] == 'notify'){ echo 'selected="selected"'; } ?>><?php _e('Notify','stock-manager'); ?></option>
+              <option value="yes" <?php if(!empty($product_meta['_backorders'][0]) && $product_meta['_backorders'][0] == 'yes'){ echo 'selected="selected"'; } ?>><?php _e('Yes','stock-manager'); ?></option>
             </select>
           </td>
           <?php 
             $class = '';
+            if(!empty($product_meta['_stock'])){
             if($product_meta['_stock'][0] < 1){ 
               $stock_number = 0;
               $class = 'outofstock';
             }else{ 
               $stock_number = $product_meta['_stock'][0];
               if($product_meta['_stock'][0] < 5){ $class = 'lowstock'; }else{
-                $class = 'instock';
+                 $class = 'instock';
               } 
             } 
+            }else{
+               $class = '';
+            }
             ?>
           <td class="td_center <?php echo $class; ?>" style="width:90px;">
             <input type="number" name="stock[<?php echo $item->ID; ?>]" value="<?php echo $stock_number; ?>" class="stock_<?php echo $item->ID; ?>" style="width:90px;" />
@@ -173,25 +177,26 @@ if(isset($_POST['save-all'])){
           <td><?php echo $item->ID; ?></td>
           <td>
             <select name="manage_stock[<?php echo $vars->ID; ?>]" class="manage_stock_<?php echo $vars->ID; ?>">
-              <option value="yes" <?php if($product_meta['_manage_stock'][0] == 'yes'){ echo 'selected="selected"'; } ?>><?php _e('Yes','stock-manager'); ?></option>
-              <option value="no" <?php if($product_meta['_manage_stock'][0] == 'no'){ echo 'selected="selected"'; } ?>><?php _e('No','stock-manager'); ?></option>
+              <option value="yes" <?php if(!empty($product_meta['_manage_stock'][0]) && $product_meta['_manage_stock'][0] == 'yes'){ echo 'selected="selected"'; } ?>><?php _e('Yes','stock-manager'); ?></option>
+              <option value="no" <?php if(!empty($product_meta['_manage_stock'][0]) && $product_meta['_manage_stock'][0] == 'no'){ echo 'selected="selected"'; } ?>><?php _e('No','stock-manager'); ?></option>
             </select>
           </td>
           <td>
             <select name="stock_status[<?php echo $vars->ID; ?>]" class="stock_status_<?php echo $vars->ID; ?>">
-              <option value="instock" <?php if($product_meta['_stock_status'][0] == 'instock'){ echo 'selected="selected"'; } ?>><?php _e('In stock','stock-manager'); ?></option>
-              <option value="outofstock" <?php if($product_meta['_stock_status'][0] == 'outofstock'){ echo 'selected="selected"'; } ?>><?php _e('Out of stock','stock-manager'); ?></option>
+              <option value="instock" <?php if(!empty($product_meta['_stock_status'][0]) && $product_meta['_stock_status'][0] == 'instock'){ echo 'selected="selected"'; } ?>><?php _e('In stock','stock-manager'); ?></option>
+              <option value="outofstock" <?php if(!empty($product_meta['_stock_status'][0]) && $product_meta['_stock_status'][0] == 'outofstock'){ echo 'selected="selected"'; } ?>><?php _e('Out of stock','stock-manager'); ?></option>
             </select>
           </td>
           <td>
             <select name="backorders[<?php echo $vars->ID; ?>]" class="backorders_<?php echo $vars->ID; ?>">
-              <option value="no" <?php if($product_meta['_backorders'][0] == 'no'){ echo 'selected="selected"'; } ?>><?php _e('No','stock-manager'); ?></option>
-              <option value="notify" <?php if($product_meta['_backorders'][0] == 'notify'){ echo 'selected="selected"'; } ?>><?php _e('Notify','stock-manager'); ?></option>
-              <option value="yes" <?php if($product_meta['_backorders'][0] == 'yes'){ echo 'selected="selected"'; } ?>><?php _e('Yes','stock-manager'); ?></option>
+              <option value="no" <?php if(!empty($product_meta['_backorders'][0]) && $product_meta['_backorders'][0] == 'no'){ echo 'selected="selected"'; } ?>><?php _e('No','stock-manager'); ?></option>
+              <option value="notify" <?php if(!empty($product_meta['_backorders'][0]) && $product_meta['_backorders'][0] == 'notify'){ echo 'selected="selected"'; } ?>><?php _e('Notify','stock-manager'); ?></option>
+              <option value="yes" <?php if(!empty($product_meta['_backorders'][0]) && $product_meta['_backorders'][0] == 'yes'){ echo 'selected="selected"'; } ?>><?php _e('Yes','stock-manager'); ?></option>
             </select>
           </td>
           <?php
           $class = '';
+            if(!empty($product_meta['_stock'])){
             if($product_meta['_stock'][0] < 1){ 
               $stock_number = 0;
               $class = 'outofstock';
@@ -201,6 +206,9 @@ if(isset($_POST['save-all'])){
                  $class = 'instock';
               } 
             } 
+            }else{
+               $class = '';
+            }
             ?>
           <td class="td_center <?php echo $class; ?>" style="width:90px;">
             <?php if($product_meta['_stock'][0] < 1){ $stock_number = 0; }else{ $stock_number = $product_meta['_stock'][0]; } ?>

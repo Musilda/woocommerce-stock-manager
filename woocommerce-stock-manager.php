@@ -3,7 +3,7 @@
  * Plugin Name:       WooCommerce Stock Manager
  * Plugin URI:        http:/toret.cz
  * Description:       WooCommerce Stock Manager
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Vladislav Musílek
  * Author URI:        http://toret.cz
  * Text Domain:       stock-manager
@@ -49,11 +49,11 @@ if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
    */        
   function stock_manager_save_one_product_stock_data(){
 	
-     $product_id   = $_POST['product'];
-	   $manage_stock = $_POST['manage_stock'];
-     $stock_status = $_POST['stock_status'];
-     $backorders   = $_POST['backorders'];
-     $stock        = $_POST['stock'];
+     $product_id   = sanitize_text_field($_POST['product']);
+	   $manage_stock = sanitize_text_field($_POST['manage_stock']);
+     $stock_status = sanitize_text_field($_POST['stock_status']);
+     $backorders   = sanitize_text_field($_POST['backorders']);
+     $stock        = sanitize_text_field($_POST['stock']);
   
   
      update_post_meta($product_id, '_manage_stock', $manage_stock);

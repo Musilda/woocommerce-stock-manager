@@ -82,11 +82,17 @@ Parent SKU - if product is variant, parent product SKU is displayed for better f
 
 == Changelog ==
 
+= 1.0.1 =
+Fix product filter issue
+
 = 1.0.0 =
 Startup version
 
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Fix product filter issue
 
 = 1.0.0 =
 Startup version

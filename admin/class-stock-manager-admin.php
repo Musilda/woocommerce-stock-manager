@@ -216,7 +216,7 @@ class Stock_Manager_Admin {
       //First line
       $array_to_csv[] = array('id','sku','Manage stock','Stock status','Backorders','Stock','Type','Parent ID'); 
        
-      $products = $stock->get_products(); 
+      $products = $stock->get_products_for_export(); 
       
       foreach( $products as $item ){ 
         $product_meta = get_post_meta($item->ID);

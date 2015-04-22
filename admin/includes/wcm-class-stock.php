@@ -96,10 +96,13 @@ class WCM_Stock {
      */         
     if(isset($_GET['product-category'])){
       if($_GET['product-category'] != 'all'){
+      
+      $category = $_GET['product-category'];
+      
       $args['tax_query'] = array(
 									array(
 										'taxonomy' 	=> 'product_cat',
-										'terms' 	  => $_GET['product-category'],
+										'terms' 	  => $category,
 										'field' 	  => 'term_id'
 									)
 								);   
@@ -107,13 +110,17 @@ class WCM_Stock {
     }
    
    if(isset($_GET['stock-status'])){ 
+      $status = $_GET['stock-status'];
+   
       $args['meta_key']   = '_stock_status';
-      $args['meta_value'] = $_GET['stock-status'];
+      $args['meta_value'] = $status;
    }
    
    if(isset($_GET['manage-stock'])){ 
+      $manage = $_GET['manage-stock'];
+      
       $args['meta_key']   = '_manage_stock';
-      $args['meta_value'] = $_GET['manage-stock'];
+      $args['meta_value'] = $manage;
    }
 
 
@@ -173,31 +180,37 @@ class WCM_Stock {
     }
     
     
-    if(isset($_GET['stock-status'])){ 
-      $args['meta_key']   = '_stock_status';
-      $args['meta_value'] = $_GET['stock-status'];
-   }
-   
-   if(isset($_GET['manage-stock'])){ 
-      $args['meta_key']   = '_manage_stock';
-      $args['meta_value'] = $_GET['manage-stock'];
-   }
-    
-
     /**
      * Product category filter
      */         
     if(isset($_GET['product-category'])){
       if($_GET['product-category'] != 'all'){
+      
+      $category = $_GET['product-category'];
+      
       $args['tax_query'] = array(
 									array(
 										'taxonomy' 	=> 'product_cat',
-										'terms' 	  => $_GET['product-category'],
+										'terms' 	  => $category,
 										'field' 	  => 'term_id'
 									)
 								);   
       }
     }
+   
+   if(isset($_GET['stock-status'])){ 
+      $status = $_GET['stock-status'];
+   
+      $args['meta_key']   = '_stock_status';
+      $args['meta_value'] = $status;
+   }
+   
+   if(isset($_GET['manage-stock'])){ 
+      $manage = $_GET['manage-stock'];
+      
+      $args['meta_key']   = '_manage_stock';
+      $args['meta_value'] = $manage;
+   }
     
     
     
@@ -216,7 +229,7 @@ class WCM_Stock {
    *   
    * @since 1.0.0  
    */        
-  public function get_all_products_with_variation(){
+  public function get_products_for_export(){
   
     $args = array();
     $args['post_type'] = 'product';
@@ -268,10 +281,10 @@ class WCM_Stock {
   public function save_all($data){
     foreach($data['product_id'] as $key => $item){
   
-     $manage_stock = $data['manage_stock'][$item];
-     $stock_status = $data['stock_status'][$item];
-     $backorders   = $data['backorders'][$item];
-     $stock        = $data['stock'][$item];
+     $manage_stock = sanitize_text_field($data['manage_stock'][$item]);
+     $stock_status = sanitize_text_field($data['stock_status'][$item]);
+     $backorders   = sanitize_text_field($data['backorders'][$item]);
+     $stock        = sanitize_text_field($data['stock'][$item]);
   
      update_post_meta($item, '_manage_stock', $manage_stock);
      update_post_meta($item, '_stock_status', $stock_status);
